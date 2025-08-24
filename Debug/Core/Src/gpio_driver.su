@@ -4,7 +4,7 @@
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_gpio.h:910:22:LL_GPIO_ResetOutputPin	16	static
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_gpio.h:939:22:LL_GPIO_TogglePin	24	static
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_bus.h:409:22:LL_AHB1_GRP1_EnableClock	24	static
-../Core/Src/gpio_driver.c:87:6:GPIO_Driver_Init	40	static
-../Core/Src/gpio_driver.c:110:6:GPIO_Driver_TogglePin	16	static
-../Core/Src/gpio_driver.c:120:6:GPIO_Driver_ReadPin	16	static
-../Core/Src/gpio_driver.c:137:6:GPIO_Driver_WritePin	16	static
+../Core/Src/gpio_driver.c:107:6:GPIO_Driver_Init	40	static
+../Core/Src/gpio_driver.c:130:6:GPIO_Driver_TogglePin	16	static
+../Core/Src/gpio_driver.c:140:6:GPIO_Driver_ReadPin	16	static
+../Core/Src/gpio_driver.c:157:6:GPIO_Driver_WritePin	16	static

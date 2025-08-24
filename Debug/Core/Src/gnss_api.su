@@ -1,4 +1,4 @@
-../Core/Src/gnss_api.c:46:6:GNSS_API_Init	8	static
-../Core/Src/gnss_api.c:61:13:GNSS_API_Task	24	static
-../Core/Src/gnss_api.c:79:6:GNSS_API_UpdateCoordinates	32	static
-../Core/Src/gnss_api.c:85:6:GNSS_API_UpdateSpeed	16	static
+../Core/Src/gnss_api.c:47:6:GNSS_API_Init	8	static
+../Core/Src/gnss_api.c:62:13:GNSS_API_Task	40	static
+../Core/Src/gnss_api.c:83:6:GNSS_API_UpdateCoordinates	32	static
+../Core/Src/gnss_api.c:89:6:GNSS_API_UpdateSpeed	16	static

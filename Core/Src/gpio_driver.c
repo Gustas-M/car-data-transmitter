@@ -35,15 +35,15 @@
 		.alternate = LL_GPIO_AF_7
 	},
 	[eGpioPin_DebugRx] = {
-			.port = GPIOA,
-			.pin = LL_GPIO_PIN_3,
-			.mode = LL_GPIO_MODE_ALTERNATE,
-			.speed = LL_GPIO_SPEED_FREQ_VERY_HIGH,
-			.output = LL_GPIO_OUTPUT_PUSHPULL,
-			.pull = LL_GPIO_PULL_NO,
-			.clock = LL_AHB1_GRP1_PERIPH_GPIOA,
-			.alternate = LL_GPIO_AF_7
-		},
+		.port = GPIOA,
+		.pin = LL_GPIO_PIN_3,
+		.mode = LL_GPIO_MODE_ALTERNATE,
+		.speed = LL_GPIO_SPEED_FREQ_VERY_HIGH,
+		.output = LL_GPIO_OUTPUT_PUSHPULL,
+		.pull = LL_GPIO_PULL_NO,
+		.clock = LL_AHB1_GRP1_PERIPH_GPIOA,
+		.alternate = LL_GPIO_AF_7
+	},
     [eGpioPin_GnssTx] = {
         .port = GPIOA,
         .pin = LL_GPIO_PIN_9,
@@ -63,7 +63,27 @@
         .pull = LL_GPIO_PULL_NO,
         .clock = LL_AHB1_GRP1_PERIPH_GPIOA,
         .alternate = LL_GPIO_AF_7
-    }
+    },
+	[eGpioPin_AccelerometerScl] = {
+		.port = GPIOB,
+		.pin = LL_GPIO_PIN_8,
+		.mode = LL_GPIO_MODE_ALTERNATE,
+		.speed = LL_GPIO_SPEED_FREQ_VERY_HIGH,
+		.output = LL_GPIO_OUTPUT_OPENDRAIN,
+		.pull = LL_GPIO_PULL_NO,
+		.clock = LL_AHB1_GRP1_PERIPH_GPIOB,
+		.alternate = LL_GPIO_AF_4
+	},
+	[eGpioPin_AccelerometerSda] = {
+		.port = GPIOB,
+		.pin = LL_GPIO_PIN_9,
+		.mode = LL_GPIO_MODE_ALTERNATE,
+		.speed = LL_GPIO_SPEED_FREQ_VERY_HIGH,
+		.output = LL_GPIO_OUTPUT_OPENDRAIN,
+		.pull = LL_GPIO_PULL_NO,
+		.clock = LL_AHB1_GRP1_PERIPH_GPIOB,
+		.alternate = LL_GPIO_AF_4
+	}
 };
 /**********************************************************************************************************************
  * Private variables
