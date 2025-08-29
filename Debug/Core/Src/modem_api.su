@@ -1,0 +1,2 @@
+../Core/Src/modem_api.c:45:6:MODEM_API_Init	8	static
+../Core/Src/modem_api.c:60:13:MODEM_API_Task	24	static

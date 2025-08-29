@@ -1,0 +1,2 @@
+../Core/Src/modem_api.c:45:6:MODEM_API_Init	4
+../Core/Src/modem_api.c:60:13:MODEM_API_Task	3

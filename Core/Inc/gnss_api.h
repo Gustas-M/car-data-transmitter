@@ -12,12 +12,6 @@ typedef struct {
 	double speed;
 } sGnssData_t;
 
-typedef enum {
-	eGnssCmd_Gngga,
-	eGnssCmd_Gnvtg,
-	eGnssCmd_Last,
-} eGnssCmd_t;
-
 bool GNSS_API_Init (void);
 void GNSS_API_FormatData (char* buffer, size_t buffer_size);
 void GNSS_API_UpdateCoordinates (double timestamp, double latitude, double longitude);

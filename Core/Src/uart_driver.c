@@ -70,6 +70,20 @@ const static sUartDesc_t g_static_uart_lut[eUartPort_Last] = {
 //		.dma_rx_stream = NULL,
 //		.dma_tx = false,
 //		.dma_tx_stream = NULL,
+    },
+    [eUartPort_Usart6] = {
+        .port = USART6,
+        .baud_rate = 115200,
+        .data_width = LL_USART_DATAWIDTH_8B,
+        .stop_bits = LL_USART_STOPBITS_1,
+        .parity = LL_USART_PARITY_NONE,
+        .transfer_direction = LL_USART_DIRECTION_TX_RX,
+        .hardware_flow_control = LL_USART_HWCONTROL_NONE,
+        .over_sampling = LL_USART_OVERSAMPLING_16,
+        .ringbuffer_capacity = 1024,
+        .irqn = USART2_IRQn,
+        .enable_clock = LL_APB1_GRP1_EnableClock,
+		.clock = LL_APB2_GRP1_PERIPH_USART6,
     }
 };
 /**********************************************************************************************************************

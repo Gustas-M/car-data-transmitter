@@ -12,6 +12,7 @@ typedef enum {
     eUartPort_First = 0,
     eUartPort_Usart1 = eUartPort_First,
     eUartPort_Usart2,
+	eUartPort_Usart6,
     eUartPort_Last
 } eUartPort_t;
 /**********************************************************************************************************************

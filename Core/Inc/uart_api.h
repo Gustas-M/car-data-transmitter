@@ -21,6 +21,7 @@
      eUartApiPort_First = 0,
      eUartApiPort_Usart1 = eUartApiPort_First,
      eUartApiPort_Usart2,
+	 eUartApiPort_Usart6,
      eUartApiPort_Last
  } eUartApiPort_t;
 /**********************************************************************************************************************

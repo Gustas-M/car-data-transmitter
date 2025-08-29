@@ -3,7 +3,6 @@
 #include "cmd_api.h"
 #include "uart_api.h"
 #include "gnss_handler.h"
-#include "accel_api.h"
 
 #define GNSS_UART_PORT eUartApiPort_Usart1
 #define GNSS_UART_BAUDRATE 9600
@@ -60,7 +59,6 @@ bool GNSS_API_Init (void) {
 }
 
 static void GNSS_API_Task (void *argument) {
-	sAccelVal_t val = {0};
 	while (1) {
 		if (UART_API_Receive(GNSS_UART_PORT, &gnss_nmea_message, osWaitForever) == false) {
 			continue;
@@ -75,8 +73,6 @@ static void GNSS_API_Task (void *argument) {
 		}
 
 		HEAP_API_Free(gnss_nmea_message.message);
-		ACCEL_API_GetAcceleration(&val);
-		int tmp = 0;
 	}
 }
 
