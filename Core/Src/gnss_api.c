@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "cmsis_os.h"
 #include "gnss_api.h"
 #include "cmd_api.h"
@@ -21,7 +22,7 @@
 static const osThreadAttr_t gnss_api_thread_attr = {
 	.name = "GNSS API Thread",
 	.stack_size = GNSS_API_THREAD_STACK_SIZE,
-	.priority = osPriorityNormal
+	.priority = osPriorityBelowNormal
 };
 
 static const sCommandDesc_t static_gnss_cmd_lut[eGnssCmd_Last] = {
@@ -42,6 +43,7 @@ static sCmdLauncherParams_t command_parser = {
 static sGnssData_t current_gnss_data = {0};
 
 static void GNSS_API_Task (void *argument);
+static void GNSS_API_FormatTime (double numeric_time, char *buffer, size_t buffer_size);
 
 bool GNSS_API_Init (void) {
 	if (UART_API_Init(GNSS_UART_PORT, 0, GNSS_UART_DELIMITER, GNSS_UART_DELIMITER_LENGTH) == false) {
@@ -64,12 +66,10 @@ static void GNSS_API_Task (void *argument) {
 			continue;
 		}
 
-		if (CMD_API_Process(&gnss_nmea_message, &command_parser) == true) {
-
-		} else {
+		if (CMD_API_Process(&gnss_nmea_message, &command_parser) == false) {
 			//debug_err
 			sMessage_t reply = {.message = command_parser.reply, .message_length = command_parser.reply_size};
-			UART_API_Send(eUartApiPort_Usart2, &reply, osWaitForever);
+//			UART_API_Send(eUartApiPort_Usart2, &reply, osWaitForever);
 		}
 
 		HEAP_API_Free(gnss_nmea_message.message);
@@ -85,3 +85,31 @@ void GNSS_API_UpdateCoordinates (double timestamp, double latitude, double longi
 void GNSS_API_UpdateSpeed (double speed) {
 	current_gnss_data.speed = speed;
 }
+
+void GNSS_API_FormatGNSS (uint8_t *buffer, size_t buffer_size) {
+    if ((buffer == NULL) || (buffer_size == 0)) {
+        return;
+    }
+    char formatted_time[9] = {0};
+    GNSS_API_FormatTime(current_gnss_data.timestamp, formatted_time, sizeof(formatted_time));
+
+    int lat_int = (int)current_gnss_data.lat;
+    int lat_dec = (int)((current_gnss_data.lat - lat_int) * 1000000);
+    int lon_int = (int)current_gnss_data.lon;
+    int lon_dec = (int)((current_gnss_data.lon - lon_int) * 1000000);
+
+    snprintf((char*)buffer, buffer_size, "timestamp: %s, latitude: %d.%06d, longitude: %d.%06d", formatted_time, lat_int, lat_dec, lon_int, lon_dec);
+}
+
+static void GNSS_API_FormatTime (double numeric_time, char *buffer, size_t buffer_size) {
+    if (buffer == NULL || buffer_size < 9) {
+        return;
+    }
+
+    int hours = (int) numeric_time / 10000;
+    int minutes = ((int) numeric_time % 10000) / 100;
+    int seconds = (int) numeric_time % 100;
+
+    snprintf(buffer, buffer_size, "%02d.%02d.%02d", hours, minutes, seconds);
+}
+

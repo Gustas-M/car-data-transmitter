@@ -1,0 +1,2 @@
+../Core/Src/cli_app.c:52:6:CLI_APP_Init	3
+../Core/Src/cli_app.c:64:13:CLI_APP_Task	2

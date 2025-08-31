@@ -16,6 +16,8 @@ typedef enum {
     eGpioPin_GnssRx,
 	eGpioPin_AccelerometerScl,
 	eGpioPin_AccelerometerSda,
+	eGpioPin_ModemTx,
+	eGpioPin_ModemRx,
     eGpioPin_Last
 } eGpioPin_t;
 /**********************************************************************************************************************

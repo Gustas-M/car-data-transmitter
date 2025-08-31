@@ -167,6 +167,16 @@ static void UART_API_Task (void *argument) {
                             break;
                         }
 
+                        if (g_dynamic_uart_api_lut[port].index == 1 && symbol == '>') {
+                            continue;
+                        }
+                        if (g_dynamic_uart_api_lut[port].index == 2 && g_dynamic_uart_api_lut[port].buffer[0] == '>' && symbol == ' ') {
+                        	g_dynamic_uart_api_lut[port].index--;
+                        	g_dynamic_uart_api_lut[port].buffer[g_dynamic_uart_api_lut[port].index] = '\0';
+                        	g_dynamic_uart_api_lut[port].state = eUartApiState_Flush;
+                            break;
+                        }
+
                         if (symbol != g_dynamic_uart_api_lut[port].delimiter[g_dynamic_uart_api_lut[port].delimiter_length - 1]) {
                             break;
                         }

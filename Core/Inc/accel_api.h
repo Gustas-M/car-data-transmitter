@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include <stdint.h>
+#include <stddef.h>
 
 #define MAX_CONF_COUNT 8
 
@@ -22,9 +23,9 @@ typedef struct {
 	uint16_t x_val;
 	uint16_t y_val;
 	uint16_t z_val;
-} sAccelVal_t;
+} sAccelData_t;
 
 bool ACCEL_API_Init (void);
-bool ACCEL_API_GetAcceleration (sAccelVal_t *axis_val);
+void ACCEL_API_FormatAcceleration (uint8_t *buffer, size_t buffer_size);
 
 #endif /* INC_ACCEL_API_H_ */

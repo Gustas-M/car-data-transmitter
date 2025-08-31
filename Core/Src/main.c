@@ -24,10 +24,13 @@
 /* USER CODE BEGIN Includes */
 #include "heap_api.h"
 #include "gpio_driver.h"
-#include "uart_driver.h"
 #include "uart_api.h"
 #include "gnss_api.h"
 #include "accel_api.h"
+#include "modem_api.h"
+#include "cli_app.h"
+#include "network_app.h"
+#include "data_sending_app.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -37,9 +40,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define GNSS_BAUD_RATE                9600
-#define GNSS_UART_DELIMITER           "\r\n"
-#define GNSS_UART_DELIMITER_LENGTH    (sizeof(GNSS_UART_DELIMITER) - 1)
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -48,8 +48,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-
-UART_HandleTypeDef huart6;
 
 /* Definitions for defaultTask */
 osThreadId_t defaultTaskHandle;
@@ -65,10 +63,10 @@ const osThreadAttr_t defaultTask_attributes = {
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_USART2_UART_Init(void);
 static void MX_I2C1_Init(void);
 static void MX_USART1_UART_Init(void);
 static void MX_USART6_UART_Init(void);
+static void MX_USART2_UART_Init(void);
 void StartDefaultTask(void *argument);
 
 /* USER CODE BEGIN PFP */
@@ -108,11 +106,11 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_USART2_UART_Init();
-  MX_I2C1_Init();
-  MX_USART1_UART_Init();
-  MX_USART6_UART_Init();
+//  MX_GPIO_Init();
+//  MX_I2C1_Init();
+//  MX_USART1_UART_Init();
+//  MX_USART6_UART_Init();
+//  MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
   if (HEAP_API_Init() == false) {
 	  Error_Handler();
@@ -120,9 +118,9 @@ int main(void)
   if (GPIO_Driver_Init() == false) {
 	  Error_Handler();
   }
-  if (ACCEL_API_Init() == false) {
-	  Error_Handler();
-  }
+//  if (ACCEL_API_Init() == false) {
+//	  Error_Handler();
+//  }
 
   /* USER CODE END 2 */
 
@@ -150,13 +148,26 @@ int main(void)
   defaultTaskHandle = osThreadNew(StartDefaultTask, NULL, &defaultTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
-  /* add threads, ... */
-  if (UART_API_Init(eUartApiPort_Usart2, 0, "\r\n", 2) == false) {
-	  Error_Handler();
-  }
-  if (GNSS_API_Init() == false) {
-	  Error_Handler();
-  }
+/* add threads, ... */
+	if (UART_API_Init(eUartApiPort_Usart2, 115200, "\r\n", 2) == false) {
+		Error_Handler();
+	}
+	if (CLI_APP_Init() == false) {
+		Error_Handler();
+	}
+	if (MODEM_API_Init() == false) {
+		Error_Handler();
+	}
+	if (DataSending_APP_Init() == false) {
+		Error_Handler();
+	}
+	if (Network_APP_Init() == false) {
+		Error_Handler();
+	}
+//	if (GNSS_API_Init() == false) {
+//		Error_Handler();
+//	}
+
   /* USER CODE END RTOS_THREADS */
 
   /* USER CODE BEGIN RTOS_EVENTS */
@@ -394,21 +405,39 @@ static void MX_USART6_UART_Init(void)
 
   /* USER CODE END USART6_Init 0 */
 
+  LL_USART_InitTypeDef USART_InitStruct = {0};
+
+  LL_GPIO_InitTypeDef GPIO_InitStruct = {0};
+
+  /* Peripheral clock enable */
+  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_USART6);
+
+  LL_AHB1_GRP1_EnableClock(LL_AHB1_GRP1_PERIPH_GPIOA);
+  /**USART6 GPIO Configuration
+  PA11   ------> USART6_TX
+  PA12   ------> USART6_RX
+  */
+  GPIO_InitStruct.Pin = LL_GPIO_PIN_11|LL_GPIO_PIN_12;
+  GPIO_InitStruct.Mode = LL_GPIO_MODE_ALTERNATE;
+  GPIO_InitStruct.Speed = LL_GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.OutputType = LL_GPIO_OUTPUT_PUSHPULL;
+  GPIO_InitStruct.Pull = LL_GPIO_PULL_NO;
+  GPIO_InitStruct.Alternate = LL_GPIO_AF_8;
+  LL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
   /* USER CODE BEGIN USART6_Init 1 */
 
   /* USER CODE END USART6_Init 1 */
-  huart6.Instance = USART6;
-  huart6.Init.BaudRate = 115200;
-  huart6.Init.WordLength = UART_WORDLENGTH_8B;
-  huart6.Init.StopBits = UART_STOPBITS_1;
-  huart6.Init.Parity = UART_PARITY_NONE;
-  huart6.Init.Mode = UART_MODE_TX_RX;
-  huart6.Init.HwFlowCtl = UART_HWCONTROL_NONE;
-  huart6.Init.OverSampling = UART_OVERSAMPLING_16;
-  if (HAL_UART_Init(&huart6) != HAL_OK)
-  {
-    Error_Handler();
-  }
+  USART_InitStruct.BaudRate = 115200;
+  USART_InitStruct.DataWidth = LL_USART_DATAWIDTH_8B;
+  USART_InitStruct.StopBits = LL_USART_STOPBITS_1;
+  USART_InitStruct.Parity = LL_USART_PARITY_NONE;
+  USART_InitStruct.TransferDirection = LL_USART_DIRECTION_TX_RX;
+  USART_InitStruct.HardwareFlowControl = LL_USART_HWCONTROL_NONE;
+  USART_InitStruct.OverSampling = LL_USART_OVERSAMPLING_16;
+  LL_USART_Init(USART6, &USART_InitStruct);
+  LL_USART_ConfigAsyncMode(USART6);
+  LL_USART_Enable(USART6);
   /* USER CODE BEGIN USART6_Init 2 */
 
   /* USER CODE END USART6_Init 2 */

@@ -28,7 +28,7 @@
 		.port = GPIOA,
 		.pin = LL_GPIO_PIN_2,
 		.mode = LL_GPIO_MODE_ALTERNATE,
-		.speed = LL_GPIO_SPEED_FREQ_VERY_HIGH,
+		.speed = LL_GPIO_SPEED_FREQ_HIGH,
 		.output = LL_GPIO_OUTPUT_PUSHPULL,
 		.pull = LL_GPIO_PULL_NO,
 		.clock = LL_AHB1_GRP1_PERIPH_GPIOA,
@@ -38,7 +38,7 @@
 		.port = GPIOA,
 		.pin = LL_GPIO_PIN_3,
 		.mode = LL_GPIO_MODE_ALTERNATE,
-		.speed = LL_GPIO_SPEED_FREQ_VERY_HIGH,
+		.speed = LL_GPIO_SPEED_FREQ_HIGH,
 		.output = LL_GPIO_OUTPUT_PUSHPULL,
 		.pull = LL_GPIO_PULL_NO,
 		.clock = LL_AHB1_GRP1_PERIPH_GPIOA,
@@ -83,6 +83,26 @@
 		.pull = LL_GPIO_PULL_NO,
 		.clock = LL_AHB1_GRP1_PERIPH_GPIOB,
 		.alternate = LL_GPIO_AF_4
+	},
+	[eGpioPin_ModemTx] = {
+		.port = GPIOA,
+		.pin = LL_GPIO_PIN_11,
+		.mode = LL_GPIO_MODE_ALTERNATE,
+		.speed = LL_GPIO_SPEED_FREQ_MEDIUM,
+		.output = LL_GPIO_OUTPUT_PUSHPULL,
+		.pull = LL_GPIO_PULL_NO,
+		.clock = LL_AHB1_GRP1_PERIPH_GPIOA,
+		.alternate = LL_GPIO_AF_8
+	},
+	[eGpioPin_ModemRx] = {
+		.port = GPIOA,
+		.pin = LL_GPIO_PIN_12,
+		.mode = LL_GPIO_MODE_ALTERNATE,
+		.speed = LL_GPIO_SPEED_FREQ_MEDIUM,
+		.output = LL_GPIO_OUTPUT_PUSHPULL,
+		.pull = LL_GPIO_PULL_NO,
+		.clock = LL_AHB1_GRP1_PERIPH_GPIOA,
+		.alternate = LL_GPIO_AF_8
 	}
 };
 /**********************************************************************************************************************

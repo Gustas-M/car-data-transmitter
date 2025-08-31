@@ -3,7 +3,10 @@
 
 typedef enum {
 	eModemCmd_Ok,
+	eModemCmd_ConnectOk,
+	eModemCmd_SendOk,
 	eModemCmd_Error,
+	eModemCmd_WriteOk,
 	eModemCmd_Last,
 } eModemCmd_t;
 

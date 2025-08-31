@@ -52,6 +52,7 @@ const static sUartDesc_t g_static_uart_lut[eUartPort_Last] = {
 //		.dma_rx_stream = eDmaStream_Uart1Rx,
 //		.dma_tx = false,
 //		.dma_tx_stream = NULL,
+
     },
     [eUartPort_Usart2] = {
         .port = USART2,
@@ -73,7 +74,7 @@ const static sUartDesc_t g_static_uart_lut[eUartPort_Last] = {
     },
     [eUartPort_Usart6] = {
         .port = USART6,
-        .baud_rate = 115200,
+        .baud_rate = 9600,
         .data_width = LL_USART_DATAWIDTH_8B,
         .stop_bits = LL_USART_STOPBITS_1,
         .parity = LL_USART_PARITY_NONE,
@@ -81,8 +82,8 @@ const static sUartDesc_t g_static_uart_lut[eUartPort_Last] = {
         .hardware_flow_control = LL_USART_HWCONTROL_NONE,
         .over_sampling = LL_USART_OVERSAMPLING_16,
         .ringbuffer_capacity = 1024,
-        .irqn = USART2_IRQn,
-        .enable_clock = LL_APB1_GRP1_EnableClock,
+        .irqn = USART6_IRQn,
+        .enable_clock = LL_APB2_GRP1_EnableClock,
 		.clock = LL_APB2_GRP1_PERIPH_USART6,
     }
 };
@@ -110,7 +111,7 @@ static void UART_Driver_IRQReceive (eUartPort_t port) {
         if ((LL_USART_IsActiveFlag_RXNE(g_static_uart_lut[port].port)) && (LL_USART_IsEnabledIT_RXNE(g_static_uart_lut[port].port))) {
             uint8_t data = LL_USART_ReceiveData8(g_static_uart_lut[port].port);
             RingBufferEnqueue(g_static_uart_rb[port], data);
-//            if (port == eUartPort_Usart1) {
+//            if (port == eUartPort_Usart2) {
 //            	LL_USART_TransmitData8(USART2, data);
 //            }
         }
@@ -125,6 +126,10 @@ void USART1_IRQHandler (void) {
 
 void USART2_IRQHandler (void) {
     UART_Driver_IRQReceive(eUartPort_Usart2);
+}
+
+void USART6_IRQHandler (void) {
+	UART_Driver_IRQReceive(eUartPort_Usart6);
 }
 /**********************************************************************************************************************
  * Definitions of exported functions

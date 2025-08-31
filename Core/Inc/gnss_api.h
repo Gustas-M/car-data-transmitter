@@ -13,8 +13,8 @@ typedef struct {
 } sGnssData_t;
 
 bool GNSS_API_Init (void);
-void GNSS_API_FormatData (char* buffer, size_t buffer_size);
 void GNSS_API_UpdateCoordinates (double timestamp, double latitude, double longitude);
 void GNSS_API_UpdateSpeed (double speed);
+void GNSS_API_FormatGNSS (uint8_t *buffer, size_t buffer_size);
 
 #endif /* INC_GNSS_API_H_ */

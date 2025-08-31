@@ -14,8 +14,8 @@ typedef enum {
 } eModemStatus_t;
 
 bool MODEM_API_Init (void);
-eModemStatus_t MODEM_API_SendAndWait (uint8_t *cmd, uint8_t wait_time);
-eModemStatus_t MODEM_API_RepeatedSendAndWait (uint8_t *cmd, uint8_t wait_time, size_t repeat, uint8_t delay);
+eModemStatus_t MODEM_API_SendAndWait (uint8_t *cmd, uint16_t wait_time);
+eModemStatus_t MODEM_API_RepeatedSendAndWait (uint8_t *cmd, uint16_t wait_time, size_t repeat, uint16_t delay);
 bool MODEM_API_Lock (void);
 bool MODEM_API_Unlock (void);
 void MODEM_API_SetModemStatus (eModemStatus_t status);
