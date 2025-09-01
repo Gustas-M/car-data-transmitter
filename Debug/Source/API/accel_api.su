@@ -1,4 +1,4 @@
 ../Source/API/accel_api.c:32:6:ACCEL_API_Init	8	static
 ../Source/API/accel_api.c:44:6:ACCEL_API_FormatAcceleration	56	static
 ../Source/API/accel_api.c:63:13:ACCEL_API_WriteConfiguration	16	static
-../Source/API/accel_api.c:76:13:ACCEL_API_GetAcceleration	24	static
+../Source/API/accel_api.c:76:13:ACCEL_API_GetAcceleration	32	static

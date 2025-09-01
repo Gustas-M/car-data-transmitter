@@ -76,27 +76,23 @@ static bool ACCEL_API_WriteConfiguration (void) {
 static bool ACCEL_API_GetAcceleration (sAccelData_t *accel_data) {
 	uint8_t axis_data[6];
 
-//	for (uint8_t axis_reg_idx = 0; axis_reg_idx < AXIS_REG_NUM; axis_reg_idx++) {
-//		if (I2C_Driver_Write(ACCEL_I2C_PORT, (uint8_t*)(AXIS_VAL_REG + axis_reg_idx), 1) == false) {
-//			return false;
-//		}
-//
-//		if (I2C_Driver_Read(ACCEL_I2C_PORT, &axis_data[axis_reg_idx], 1) == false) {
-//			return false;
-//		}
-//	}
-//
-//	int16_t raw_x_val = (int16_t)(axis_data[1] << 8) | axis_data[0];
-//	int16_t raw_y_val = (int16_t)(axis_data[3] << 8) | axis_data[2];
-//	int16_t raw_z_val = (int16_t)(axis_data[5] << 8) | axis_data[4];
+	for (uint8_t axis_reg_idx = 0; axis_reg_idx < AXIS_REG_NUM; axis_reg_idx++) {
+		if (I2C_Driver_Write(ACCEL_I2C_PORT, (uint8_t*)(AXIS_VAL_REG + axis_reg_idx), 1) == false) {
+			return false;
+		}
 
-//	accel_data->x_val = raw_x_val * SCALE_FACTOR;
-//	accel_data->y_val = raw_y_val * SCALE_FACTOR;
-//	accel_data->z_val = raw_z_val * SCALE_FACTOR;
+		if (I2C_Driver_Read(ACCEL_I2C_PORT, &axis_data[axis_reg_idx], 1) == false) {
+			return false;
+		}
+	}
 
-	accel_data->x_val = 0;
-	accel_data->y_val = 0;
-	accel_data->z_val = 0;
+	int16_t raw_x_val = (int16_t)(axis_data[1] << 8) | axis_data[0];
+	int16_t raw_y_val = (int16_t)(axis_data[3] << 8) | axis_data[2];
+	int16_t raw_z_val = (int16_t)(axis_data[5] << 8) | axis_data[4];
+
+	accel_data->x_val = raw_x_val * SCALE_FACTOR;
+	accel_data->y_val = raw_y_val * SCALE_FACTOR;
+	accel_data->z_val = raw_z_val * SCALE_FACTOR;
 
 	return true;
 }

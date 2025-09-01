@@ -1,4 +1,4 @@
 ../Source/API/accel_api.c:32:6:ACCEL_API_Init	3
 ../Source/API/accel_api.c:44:6:ACCEL_API_FormatAcceleration	4
 ../Source/API/accel_api.c:63:13:ACCEL_API_WriteConfiguration	4
-../Source/API/accel_api.c:76:13:ACCEL_API_GetAcceleration	1
+../Source/API/accel_api.c:76:13:ACCEL_API_GetAcceleration	4

@@ -26,10 +26,6 @@ typedef struct {
     IRQn_Type irqn;
     EnableClock_t enable_clock;
     uint32_t clock;
-//    bool dma_rx;
-//    eDmaStream_t dma_rx_stream;
-//    bool dma_tx;
-//    eDmaStream_t dma_tx_stream;
 } sUartDesc_t;
 /**********************************************************************************************************************
  * Private constants
@@ -48,11 +44,6 @@ const static sUartDesc_t g_static_uart_lut[eUartPort_Last] = {
         .irqn = USART1_IRQn,
         .enable_clock = LL_APB2_GRP1_EnableClock,
 		.clock = LL_APB2_GRP1_PERIPH_USART1,
-//		.dma_rx = true,
-//		.dma_rx_stream = eDmaStream_Uart1Rx,
-//		.dma_tx = false,
-//		.dma_tx_stream = NULL,
-
     },
     [eUartPort_Usart2] = {
         .port = USART2,
@@ -67,10 +58,6 @@ const static sUartDesc_t g_static_uart_lut[eUartPort_Last] = {
         .irqn = USART2_IRQn,
         .enable_clock = LL_APB1_GRP1_EnableClock,
 		.clock = LL_APB1_GRP1_PERIPH_USART2,
-//		.dma_rx = false,
-//		.dma_rx_stream = NULL,
-//		.dma_tx = false,
-//		.dma_tx_stream = NULL,
     },
     [eUartPort_Usart6] = {
         .port = USART6,
@@ -111,9 +98,6 @@ static void UART_Driver_IRQReceive (eUartPort_t port) {
         if ((LL_USART_IsActiveFlag_RXNE(g_static_uart_lut[port].port)) && (LL_USART_IsEnabledIT_RXNE(g_static_uart_lut[port].port))) {
             uint8_t data = LL_USART_ReceiveData8(g_static_uart_lut[port].port);
             RingBufferEnqueue(g_static_uart_rb[port], data);
-            if (port == eUartPort_Usart2) {
-            	LL_USART_TransmitData8(USART2, data);
-            }
         }
     }
 
