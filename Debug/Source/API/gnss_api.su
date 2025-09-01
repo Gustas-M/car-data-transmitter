@@ -1,0 +1,6 @@
+../Source/API/gnss_api.c:48:6:GNSS_API_Init	8	static
+../Source/API/gnss_api.c:63:13:GNSS_API_Task	24	static
+../Source/API/gnss_api.c:79:6:GNSS_API_UpdateCoordinates	32	static
+../Source/API/gnss_api.c:85:6:GNSS_API_UpdateSpeed	16	static
+../Source/API/gnss_api.c:89:6:GNSS_API_FormatGNSS	72	static
+../Source/API/gnss_api.c:104:13:GNSS_API_FormatTime	48	static

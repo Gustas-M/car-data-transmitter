@@ -1,0 +1,3 @@
+../Source/API/gnss_handler.c:12:6:GNSS_GnggaHandler	112	static
+../Source/API/gnss_handler.c:68:6:GNSS_GnvtgHandler	48	static
+../Source/API/gnss_handler.c:98:13:GNSS_IsNmeaValid	96	static

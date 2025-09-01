@@ -1,6 +1,0 @@
-../Core/Src/gnss_api.c:48:6:GNSS_API_Init	4
-../Core/Src/gnss_api.c:63:13:GNSS_API_Task	3
-../Core/Src/gnss_api.c:79:6:GNSS_API_UpdateCoordinates	1
-../Core/Src/gnss_api.c:85:6:GNSS_API_UpdateSpeed	1
-../Core/Src/gnss_api.c:89:6:GNSS_API_FormatGNSS	3
-../Core/Src/gnss_api.c:104:13:GNSS_API_FormatTime	3

@@ -1,0 +1,5 @@
+../Source/API/uart_api.c:139:13:UART_API_Task	19
+../Source/API/uart_api.c:216:13:UART_API_IsDelimiterReceived	5
+../Source/API/uart_api.c:229:6:UART_API_Init	9
+../Source/API/uart_api.c:271:6:UART_API_Send	7
+../Source/API/uart_api.c:297:6:UART_API_Receive	5

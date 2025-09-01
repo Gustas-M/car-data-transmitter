@@ -1,3 +1,0 @@
-../Core/Src/network_app.c:40:6:Network_APP_Init	8	static
-../Core/Src/network_app.c:58:6:Network_APP_AddTask	16	static
-../Core/Src/network_app.c:70:13:Network_APP_Task	24	static

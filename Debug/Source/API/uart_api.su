@@ -1,0 +1,5 @@
+../Source/API/uart_api.c:139:13:UART_API_Task	48	static
+../Source/API/uart_api.c:216:13:UART_API_IsDelimiterReceived	24	static
+../Source/API/uart_api.c:229:6:UART_API_Init	32	static
+../Source/API/uart_api.c:271:6:UART_API_Send	24	static
+../Source/API/uart_api.c:297:6:UART_API_Receive	32	static

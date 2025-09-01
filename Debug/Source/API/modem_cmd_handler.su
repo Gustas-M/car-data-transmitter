@@ -1,0 +1,2 @@
+../Source/API/modem_cmd_handler.c:6:6:MODEM_CMD_OkHandler	16	static
+../Source/API/modem_cmd_handler.c:17:6:MODEM_CMD_ErrorHandler	16	static

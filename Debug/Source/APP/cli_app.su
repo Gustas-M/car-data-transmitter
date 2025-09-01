@@ -1,0 +1,2 @@
+../Source/APP/cli_app.c:52:6:CLI_APP_Init	8	static
+../Source/APP/cli_app.c:64:13:CLI_APP_Task	16	static

@@ -1,0 +1,5 @@
+../Source/APP/data_sending_app.c:61:6:DataSending_APP_Init	8	static
+../Source/APP/data_sending_app.c:86:6:DataSending_APP_AddTask	16	static
+../Source/APP/data_sending_app.c:102:13:DataSending_APP_Callback	16	static
+../Source/APP/data_sending_app.c:118:13:DataSending_APP_Task	16	static
+../Source/APP/data_sending_app.c:151:13:DataSending_APP_FormatMessage	176	static
