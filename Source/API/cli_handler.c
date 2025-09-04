@@ -9,7 +9,6 @@ typedef enum {
     eHandlerCode_First = 0,
     eHandlerCode_Internal = eHandlerCode_First,
     eHandlerCode_InvalidInput,
-    eHandlerCode_ParameterOutOfRange,
     eHandlerCode_TaskQueueFull,
     eHandlerCode_MissingParameter,
     eHandlerCode_Last
@@ -29,10 +28,6 @@ static void CLI_HandleResponse (uint8_t *response_buffer, size_t buffer_size, eH
             snprintf((char*)response_buffer, buffer_size, "Invalid Input\r");
             break;
         }
-        case eHandlerCode_ParameterOutOfRange: {
-            snprintf((char*)response_buffer, buffer_size, "Invalid input: parameter out of range.\r");
-            break;
-        }
         case eHandlerCode_TaskQueueFull: {
             snprintf((char*)response_buffer, buffer_size, "Timeout: task queue is full.\r");
             break;
@@ -48,7 +43,7 @@ static void CLI_HandleResponse (uint8_t *response_buffer, size_t buffer_size, eH
 }
 
 
-bool CLI_StartTCPHandler(sCommandParams_t *cmd_params) {
+bool CLI_StartTCPHandler (sCommandParams_t *cmd_params) {
     if (CMD_API_CheckParams(cmd_params) == false) {
         return false;
     }
@@ -110,7 +105,7 @@ bool CLI_StartTCPHandler(sCommandParams_t *cmd_params) {
     return true;
 }
 
-bool CLI_StopTCPHandler(sCommandParams_t *cmd_params) {
+bool CLI_StopTCPHandler (sCommandParams_t *cmd_params) {
 	sDataSendingTask_t params = {0};
 	params.task = eDataSendingTask_Stop;
 	params.params = NULL;

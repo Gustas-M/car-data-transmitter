@@ -98,6 +98,7 @@ static void UART_Driver_IRQReceive (eUartPort_t port) {
         if ((LL_USART_IsActiveFlag_RXNE(g_static_uart_lut[port].port)) && (LL_USART_IsEnabledIT_RXNE(g_static_uart_lut[port].port))) {
             uint8_t data = LL_USART_ReceiveData8(g_static_uart_lut[port].port);
             RingBufferEnqueue(g_static_uart_rb[port], data);
+            LL_USART_ClearFlag_RXNE(g_static_uart_lut[port].port);
         }
     }
 

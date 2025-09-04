@@ -2,6 +2,7 @@
  * Includes
  *********************************************************************************************************************/
 #include "cmsis_os.h"
+#include "stm32f4xx_ll_usart.h"
 #include "uart_api.h"
 #include "uart_driver.h"
 #include "heap_api.h"
@@ -20,7 +21,8 @@
 #define UART_API_TASK_STACK_SIZE 512
 
 #define USART1_BUFFER_SIZE 512
-#define USART2_BUFFER_SIZE 1024
+#define USART2_BUFFER_SIZE 256
+#define USART6_BUFFER_SIZE 1024
 
 /**********************************************************************************************************************
  * Private typedef
@@ -82,7 +84,7 @@ const static eUartApiDesc_t g_static_uart_api_lut[eUartApiPort_Last] = {
         .uart_port = eUartPort_Usart2,
         .buffer_size = USART2_BUFFER_SIZE,
         .queue_attributes = {
-            .name = "USART1 Queue",
+            .name = "USART2 Queue",
             .attr_bits = MESSAGE_QUEUE_ATTR_BITS_DEFAULT,
             .cb_mem = CB_MEM_DEFAULT,
             .cb_size = CB_SIZE_DEFAULT,
@@ -95,7 +97,25 @@ const static eUartApiDesc_t g_static_uart_api_lut[eUartApiPort_Last] = {
             .cb_mem = CB_MEM_DEFAULT,
             .cb_size = CB_SIZE_DEFAULT
         }
-    }
+    },
+	[eUartApiPort_Usart6] = {
+	        .uart_port = eUartPort_Usart6,
+	        .buffer_size = USART6_BUFFER_SIZE,
+	        .queue_attributes = {
+	            .name = "USART6 Queue",
+	            .attr_bits = MESSAGE_QUEUE_ATTR_BITS_DEFAULT,
+	            .cb_mem = CB_MEM_DEFAULT,
+	            .cb_size = CB_SIZE_DEFAULT,
+	            .mq_mem = MQ_MEM_DEFAULT,
+	            .mq_size = MQ_SIZE_DEFAULT
+	        },
+	        .mutex_attributes = {
+	            .name = "USART6 Mutex",
+	            .attr_bits = osMutexRecursive,
+	            .cb_mem = CB_MEM_DEFAULT,
+	            .cb_size = CB_SIZE_DEFAULT
+	        }
+	    }
 };
 
 /**********************************************************************************************************************
@@ -114,6 +134,16 @@ static sUartApiTaskData_t g_dynamic_uart_api_lut[eUartApiPort_Last] = {
         .state = eUartApiState_Initialize
     },
     [eUartApiPort_Usart2] = {
+        .message_queue_id = NULL,
+        .mutex_id = NULL,
+        .buffer = NULL,
+        .index = 0,
+        .delimiter = NULL,
+        .delimiter_length = 0,
+        .is_initialized = false,
+        .state = eUartApiState_Initialize
+    },
+    [eUartApiPort_Usart6] = {
         .message_queue_id = NULL,
         .mutex_id = NULL,
         .buffer = NULL,
@@ -178,7 +208,7 @@ static void UART_API_Task (void *argument) {
                         }
 
                         if (symbol != g_dynamic_uart_api_lut[port].delimiter[g_dynamic_uart_api_lut[port].delimiter_length - 1]) {
-                            break;
+                            continue;
                         }
 
                         if (UART_API_IsDelimiterReceived(&g_dynamic_uart_api_lut[port]) == true) {

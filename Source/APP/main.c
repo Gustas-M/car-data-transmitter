@@ -130,9 +130,6 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
 /* add threads, ... */
-	if (UART_API_Init(eUartApiPort_Usart2, 0, "\r\n", 2) == false) {
-		Error_Handler();
-	}
 	if (CLI_APP_Init() == false) {
 		Error_Handler();
 	}

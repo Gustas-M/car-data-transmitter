@@ -10,8 +10,12 @@
 #define CLI_RESPONSE_BUFFER_SIZE 512
 
 #define CLI_UART_PORT eUartApiPort_Usart2
+#define CLI_UART_PORT_DELIMITER "\r\n"
+#define CLI_UART_PORT_DELIMITER_SIZE sizeof(CLI_UART_PORT_DELIMITER) - 1
 
 #define CLI_APP_THREAD_NO_ARGS NULL
+
+#define CLI_APP_RECEIVE_WAIT_TIME 100
 
 #define DEFINE_CMD(cmd, cmd_handler, sep) { \
 	.command_name = (uint8_t*)#cmd, \
@@ -50,6 +54,10 @@ static sCmdLauncherParams_t command_parser = {
 static void CLI_APP_Task (void *arguments);
 
 bool CLI_APP_Init (void) {
+	if (UART_API_Init(CLI_UART_PORT, 0, CLI_UART_PORT_DELIMITER, CLI_UART_PORT_DELIMITER_SIZE) == false) {
+		return false;
+	}
+
     if (cli_app_thread == NULL) {
     	cli_app_thread = osThreadNew(CLI_APP_Task, CLI_APP_THREAD_NO_ARGS, &cli_app_thread_attr);
     	if (cli_app_thread == NULL) {
@@ -63,11 +71,13 @@ bool CLI_APP_Init (void) {
 
 static void CLI_APP_Task (void *arguments) {
     while (1) {
-        if (UART_API_Receive(CLI_UART_PORT, &received_message, osWaitForever) == false) {
+        if (UART_API_Receive(CLI_UART_PORT, &received_message, CLI_APP_RECEIVE_WAIT_TIME) == false) {
             continue;
         }
         if (CMD_API_Process(&received_message, &command_parser) == false) {
-            //debug_err
+        	//debug_err
+        	sMessage_t reply = {.message = command_parser.reply, .message_length = command_parser.reply_size};
+        	UART_API_Send(CLI_UART_PORT, &reply, osWaitForever);
         }
 
         HEAP_API_Free(received_message.message);

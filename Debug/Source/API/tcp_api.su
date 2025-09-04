@@ -1,3 +1,0 @@
-../Source/API/tcp_api.c:28:6:TCP_API_Connect	32	static
-../Source/API/tcp_api.c:86:6:TCP_API_Disconnect	24	static
-../Source/API/tcp_api.c:122:6:TCP_API_Send	24	static

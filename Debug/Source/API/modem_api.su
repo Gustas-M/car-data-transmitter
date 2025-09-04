@@ -1,9 +1,0 @@
-../Source/API/modem_api.c:84:6:MODEM_API_Init	8	static
-../Source/API/modem_api.c:120:13:MODEM_API_Task	24	static
-../Source/API/modem_api.c:136:16:MODEM_API_SendAndWait	32	static
-../Source/API/modem_api.c:148:16:MODEM_API_RepeatedSendAndWait	32	static
-../Source/API/modem_api.c:170:6:MODEM_API_Lock	8	static
-../Source/API/modem_api.c:181:6:MODEM_API_Unlock	8	static
-../Source/API/modem_api.c:192:6:MODEM_API_SetModemStatus	16	static
-../Source/API/modem_api.c:197:6:MODEM_API_ReceiveFromQueue	16	static
-../Source/API/modem_api.c:209:6:MODEM_API_PutToQueue	16	static

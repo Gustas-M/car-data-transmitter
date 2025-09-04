@@ -1,4 +1,0 @@
-../Source/APP/main.c:72:5:main	10
-../Source/APP/main.c:178:6:SystemClock_Config	3
-../Source/APP/main.c:234:6:HAL_TIM_PeriodElapsedCallback	2
-../Source/APP/main.c:252:6:Error_Handler	1

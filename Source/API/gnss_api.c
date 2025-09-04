@@ -68,7 +68,7 @@ static void GNSS_API_Task (void *argument) {
 
 		if (CMD_API_Process(&gnss_nmea_message, &command_parser) == false) {
 			//debug_err
-			sMessage_t reply = {.message = command_parser.reply, .message_length = command_parser.reply_size};
+//			sMessage_t reply = {.message = command_parser.reply, .message_length = command_parser.reply_size};
 //			UART_API_Send(eUartApiPort_Usart2, &reply, osWaitForever);
 		}
 

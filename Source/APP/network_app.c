@@ -33,7 +33,7 @@ static const osMessageQueueAttr_t network_app_mq_attr = {
 static osThreadId_t network_app_thread = NULL;
 static osMessageQueueId_t network_app_mq = NULL;
 static sNetworkAppTaskParams_t received_task = {0};
-static uint8_t socket = 0;
+static uint8_t socket = -1;
 
 static void Network_APP_Task (void *arguments);
 

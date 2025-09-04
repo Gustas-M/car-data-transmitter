@@ -1,3 +1,0 @@
-../Source/API/cmd_api.c:38:5:CMD_API_FindSeperator	24	static
-../Source/API/cmd_api.c:52:6:CMD_API_Process	48	static
-../Source/API/cmd_api.c:89:6:CMD_API_CheckParams	16	static
